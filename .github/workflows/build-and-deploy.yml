@@ -1,0 +1,31 @@
+name: Build and Deploy
+
+# This workflow runs on every push event
+on:
+  push: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup Hugo
+      - name: Install Hugo
+        uses: actions/software@v3
+        with:
+          package_path: hugo
+          add_path: true
+          # Update version as needed (check Hugo releases)
+          # https://github.com/gohugoio/hugo/releases
+          # Example: version: '0.106.0'
+
+      # Build the website
+      - name: Build Site
+        run: hugo
+
+      # Deployment steps can be added here based on your hosting provider
+      # This example simply outputs the public folder contents
+      - name: Show Built Files
+        run: ls -la public/
